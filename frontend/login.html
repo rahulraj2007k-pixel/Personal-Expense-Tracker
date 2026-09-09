@@ -23,46 +23,87 @@
                 Login to manage your finances
             </p>
 
+
+            <!-- LOGIN FORM -->
+
             <form id="loginForm">
 
+                <!-- EMAIL -->
+
                 <div class="form-group">
-                    <label for="loginEmail">Email</label>
+
+                    <label for="email">
+                        Email
+                    </label>
 
                     <input
                         type="email"
-                        id="loginEmail"
+                        id="email"
+                        name="email"
                         placeholder="Enter your email"
                         required
                     >
+
                 </div>
 
+
+                <!-- PASSWORD -->
+
                 <div class="form-group">
-                    <label for="loginPassword">Password</label>
+
+                    <label for="password">
+                        Password
+                    </label>
 
                     <input
                         type="password"
-                        id="loginPassword"
+                        id="password"
+                        name="password"
                         placeholder="Enter your password"
                         required
                     >
+
                 </div>
 
-                <button type="submit" class="auth-button">
+
+                <!-- MESSAGE -->
+
+                <p
+                    id="message"
+                    class="message"
+                ></p>
+
+
+                <!-- LOGIN BUTTON -->
+
+                <button
+                    type="submit"
+                    class="btn-primary"
+                >
                     Login
                 </button>
 
-                <p id="loginMessage" class="message"></p>
-
             </form>
 
-            <p class="auth-footer">
+
+            <!-- REGISTER LINK -->
+
+            <p class="auth-link">
+
                 Don't have an account?
-                <a href="register.html">Create Account</a>
+
+                <a href="register.html">
+                    Create Account
+                </a>
+
             </p>
 
         </div>
 
     </div>
+
+
+    <!-- AUTH JAVASCRIPT -->
 
     <script src="js/auth.js"></script>
 
