@@ -1,37 +1,31 @@
-// ==========================================
-// TRANSACTIONS PAGE
-// ==========================================
+ // ======================================================
+// PERSONAL EXPENSE TRACKER - TRANSACTIONS
+// ======================================================
 
-const API_URL = "http://localhost:5000/api";
+const API_URL = "/api";
 
 const token = localStorage.getItem("token");
 
-
-// ==========================================
-// LOGIN CHECK
-// ==========================================
+// ======================================================
+// AUTH CHECK
+// ======================================================
 
 if (!token) {
     window.location.href = "login.html";
 }
 
-
-// ==========================================
+// ======================================================
 // PAGE LOAD
-// ==========================================
+// ======================================================
 
 document.addEventListener("DOMContentLoaded", () => {
-
     showUserName();
-
     loadTransactions();
-
 });
 
-
-// ==========================================
-// SHOW USER NAME
-// ==========================================
+// ======================================================
+// USER NAME
+// ======================================================
 
 function showUserName() {
 
@@ -51,7 +45,9 @@ function showUserName() {
             JSON.parse(savedUser);
 
         userName.textContent =
-            user.name || user.email || "";
+            user.name ||
+            user.email ||
+            "";
 
     } catch (error) {
 
@@ -61,32 +57,24 @@ function showUserName() {
         );
 
     }
-
 }
 
-
-// ==========================================
-// API HEADERS
-// ==========================================
+// ======================================================
+// HEADERS
+// ======================================================
 
 function getHeaders() {
 
     return {
-
-        "Content-Type":
-            "application/json",
-
-        "Authorization":
-            `Bearer ${token}`
-
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
     };
 
 }
 
-
-// ==========================================
+// ======================================================
 // LOAD TRANSACTIONS
-// ==========================================
+// ======================================================
 
 async function loadTransactions() {
 
@@ -101,19 +89,15 @@ async function loadTransactions() {
                 }
             );
 
-
         if (response.status === 401) {
 
             logout();
-
             return;
 
         }
 
-
         const data =
             await response.json();
-
 
         if (!response.ok) {
 
@@ -124,17 +108,14 @@ async function loadTransactions() {
 
         }
 
-
         const transactionList =
             Array.isArray(data)
                 ? data
                 : data.transactions || [];
 
-
         displayTransactions(
             transactionList
         );
-
 
     } catch (error) {
 
@@ -143,12 +124,10 @@ async function loadTransactions() {
             error
         );
 
-
         const container =
             document.getElementById(
                 "transactions"
             );
-
 
         if (container) {
 
@@ -164,10 +143,9 @@ async function loadTransactions() {
 
 }
 
-
-// ==========================================
+// ======================================================
 // DISPLAY TRANSACTIONS
-// ==========================================
+// ======================================================
 
 function displayTransactions(
     transactionList
@@ -178,14 +156,11 @@ function displayTransactions(
             "transactions"
         );
 
-
     if (!container) {
         return;
     }
 
-
     container.innerHTML = "";
-
 
     if (
         !transactionList ||
@@ -202,7 +177,6 @@ function displayTransactions(
 
     }
 
-
     transactionList.forEach(
         transaction => {
 
@@ -211,30 +185,24 @@ function displayTransactions(
                     "div"
                 );
 
-
             item.className =
                 "transaction-item";
 
-
             const type =
                 transaction.type;
-
 
             const amount =
                 Number(
                     transaction.amount
                 ) || 0;
 
-
             const category =
                 transaction.category ||
                 "Other";
 
-
             const description =
                 transaction.description ||
                 "No description";
-
 
             const date =
                 transaction.date
@@ -245,38 +213,28 @@ function displayTransactions(
                     )
                     : "";
 
-
             const sign =
                 type === "income"
                     ? "+"
                     : "-";
-
 
             item.innerHTML = `
 
                 <div class="transaction-info">
 
                     <h3>
-                        ${escapeHTML(
-                            category
-                        )}
+                        ${escapeHTML(category)}
                     </h3>
 
                     <p>
-                        ${escapeHTML(
-                            description
-                        )}
+                        ${escapeHTML(description)}
                     </p>
 
                     <small>
-                        ${date}
-                        •
-                        ${type}
+                        ${date} • ${type}
                     </small>
 
-                    <div
-                        class="transaction-actions"
-                    >
+                    <div class="transaction-actions">
 
                         <button
                             class="edit-btn"
@@ -296,10 +254,7 @@ function displayTransactions(
 
                 </div>
 
-
-                <div
-                    class="transaction-amount ${type}"
-                >
+                <div class="transaction-amount ${type}">
 
                     ${sign}
                     ${formatCurrency(amount)}
@@ -308,7 +263,6 @@ function displayTransactions(
 
             `;
 
-
             container.appendChild(item);
 
         }
@@ -316,10 +270,9 @@ function displayTransactions(
 
 }
 
-
-// ==========================================
+// ======================================================
 // FILTER TRANSACTIONS
-// ==========================================
+// ======================================================
 
 async function filterTransactions() {
 
@@ -328,22 +281,18 @@ async function filterTransactions() {
             "filterType"
         ).value;
 
-
     const category =
         document.getElementById(
             "filterCategory"
         ).value.trim();
-
 
     const date =
         document.getElementById(
             "filterDate"
         ).value;
 
-
     const params =
         new URLSearchParams();
-
 
     if (type) {
 
@@ -354,7 +303,6 @@ async function filterTransactions() {
 
     }
 
-
     if (category) {
 
         params.append(
@@ -363,7 +311,6 @@ async function filterTransactions() {
         );
 
     }
-
 
     if (date) {
 
@@ -374,34 +321,34 @@ async function filterTransactions() {
 
     }
 
-
     try {
+
+        const query =
+            params.toString();
+
+        const url =
+            query
+                ? `${API_URL}/transactions?${query}`
+                : `${API_URL}/transactions`;
 
         const response =
             await fetch(
-
-                `${API_URL}/transactions?${params.toString()}`,
-
+                url,
                 {
                     method: "GET",
                     headers: getHeaders()
                 }
-
             );
-
 
         if (response.status === 401) {
 
             logout();
-
             return;
 
         }
 
-
         const data =
             await response.json();
-
 
         if (!response.ok) {
 
@@ -412,17 +359,14 @@ async function filterTransactions() {
 
         }
 
-
         const transactionList =
             Array.isArray(data)
                 ? data
                 : data.transactions || [];
 
-
         displayTransactions(
             transactionList
         );
-
 
     } catch (error) {
 
@@ -439,42 +383,51 @@ async function filterTransactions() {
 
 }
 
-
-// ==========================================
+// ======================================================
 // CLEAR FILTERS
-// ==========================================
+// ======================================================
 
 function clearFilters() {
 
-    document.getElementById(
-        "filterType"
-    ).value = "";
+    const type =
+        document.getElementById(
+            "filterType"
+        );
 
+    const category =
+        document.getElementById(
+            "filterCategory"
+        );
 
-    document.getElementById(
-        "filterCategory"
-    ).value = "";
+    const date =
+        document.getElementById(
+            "filterDate"
+        );
 
+    if (type) {
+        type.value = "";
+    }
 
-    document.getElementById(
-        "filterDate"
-    ).value = "";
+    if (category) {
+        category.value = "";
+    }
 
+    if (date) {
+        date.value = "";
+    }
 
     loadTransactions();
 
 }
 
-
-// ==========================================
+// ======================================================
 // EDIT TRANSACTION
-// ==========================================
+// ======================================================
 
 async function editTransaction(id) {
 
     try {
 
-        // Get current transactions
         const response =
             await fetch(
                 `${API_URL}/transactions`,
@@ -484,23 +437,26 @@ async function editTransaction(id) {
                 }
             );
 
+        if (response.status === 401) {
+
+            logout();
+            return;
+
+        }
 
         const data =
             await response.json();
-
 
         const transactionList =
             Array.isArray(data)
                 ? data
                 : data.transactions || [];
 
-
         const transaction =
             transactionList.find(
                 item =>
                     item._id === id
             );
-
 
         if (!transaction) {
 
@@ -512,13 +468,11 @@ async function editTransaction(id) {
 
         }
 
-
         const newAmount =
             prompt(
                 "Enter new amount:",
                 transaction.amount
             );
-
 
         if (
             newAmount === null ||
@@ -529,13 +483,11 @@ async function editTransaction(id) {
 
         }
 
-
         const newCategory =
             prompt(
                 "Enter category:",
                 transaction.category
             );
-
 
         if (
             newCategory === null ||
@@ -546,63 +498,62 @@ async function editTransaction(id) {
 
         }
 
-
         const newDescription =
             prompt(
                 "Enter description:",
                 transaction.description || ""
             );
 
-
-        if (
-            newDescription === null
-        ) {
+        if (newDescription === null) {
 
             return;
 
         }
 
-
         const updateResponse =
             await fetch(
-
                 `${API_URL}/transactions/${id}`,
-
                 {
-
                     method: "PUT",
 
-                    headers: getHeaders(),
+                    headers:
+                        getHeaders(),
 
-                    body: JSON.stringify({
+                    body:
+                        JSON.stringify({
 
-                        type:
-                            transaction.type,
+                            type:
+                                transaction.type,
 
-                        amount:
-                            Number(
-                                newAmount
-                            ),
+                            amount:
+                                Number(
+                                    newAmount
+                                ),
 
-                        category:
-                            newCategory,
+                            category:
+                                newCategory,
 
-                        date:
-                            transaction.date,
+                            date:
+                                transaction.date,
 
-                        description:
-                            newDescription
+                            description:
+                                newDescription
 
-                    })
-
+                        })
                 }
-
             );
 
+        if (
+            updateResponse.status === 401
+        ) {
+
+            logout();
+            return;
+
+        }
 
         const updateData =
             await updateResponse.json();
-
 
         if (!updateResponse.ok) {
 
@@ -613,14 +564,11 @@ async function editTransaction(id) {
 
         }
 
-
         alert(
             "Transaction updated successfully!"
         );
 
-
         loadTransactions();
-
 
     } catch (error) {
 
@@ -628,7 +576,6 @@ async function editTransaction(id) {
             "Edit error:",
             error
         );
-
 
         alert(
             error.message ||
@@ -639,10 +586,9 @@ async function editTransaction(id) {
 
 }
 
-
-// ==========================================
+// ======================================================
 // DELETE TRANSACTION
-// ==========================================
+// ======================================================
 
 async function deleteTransaction(id) {
 
@@ -651,35 +597,32 @@ async function deleteTransaction(id) {
             "Are you sure you want to delete this transaction?"
         );
 
-
     if (!confirmDelete) {
-
         return;
-
     }
-
 
     try {
 
         const response =
             await fetch(
-
                 `${API_URL}/transactions/${id}`,
-
                 {
-
                     method: "DELETE",
-
                     headers: getHeaders()
-
                 }
-
             );
 
+        if (
+            response.status === 401
+        ) {
+
+            logout();
+            return;
+
+        }
 
         const data =
             await response.json();
-
 
         if (!response.ok) {
 
@@ -690,14 +633,11 @@ async function deleteTransaction(id) {
 
         }
 
-
         alert(
             "Transaction deleted successfully!"
         );
 
-
         loadTransactions();
-
 
     } catch (error) {
 
@@ -705,7 +645,6 @@ async function deleteTransaction(id) {
             "Delete error:",
             error
         );
-
 
         alert(
             error.message ||
@@ -716,10 +655,9 @@ async function deleteTransaction(id) {
 
 }
 
-
-// ==========================================
+// ======================================================
 // LOGOUT
-// ==========================================
+// ======================================================
 
 function logout() {
 
@@ -727,21 +665,18 @@ function logout() {
         "token"
     );
 
-
     localStorage.removeItem(
         "user"
     );
-
 
     window.location.href =
         "login.html";
 
 }
 
-
-// ==========================================
+// ======================================================
 // CURRENCY FORMAT
-// ==========================================
+// ======================================================
 
 function formatCurrency(amount) {
 
@@ -756,10 +691,9 @@ function formatCurrency(amount) {
 
 }
 
-
-// ==========================================
-// SECURITY
-// ==========================================
+// ======================================================
+// HTML SECURITY
+// ======================================================
 
 function escapeHTML(value) {
 

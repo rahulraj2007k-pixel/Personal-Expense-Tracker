@@ -1,134 +1,261 @@
- const API_URL = "http://localhost:5000/api";
+ // ======================================================
+// PERSONAL EXPENSE TRACKER - AUTHENTICATION
+// ======================================================
 
-// ==================== REGISTER ====================
+// Same Render server se API call hogi
+const API_URL = "/api";
 
-const registerForm = document.getElementById("registerForm");
+// ======================================================
+// REGISTER
+// ======================================================
+
+const registerForm =
+    document.getElementById("registerForm");
 
 if (registerForm) {
-    registerForm.addEventListener("submit", async (event) => {
-        event.preventDefault();
 
-        const name = document.getElementById("name").value.trim();
-        const email = document.getElementById("email").value.trim();
-        const password = document.getElementById("password").value;
-        const confirmPassword =
-            document.getElementById("confirmPassword").value;
+    registerForm.addEventListener(
+        "submit",
+        async function (event) {
 
-        const message =
-            document.getElementById("registerMessage");
+            event.preventDefault();
 
-        if (password !== confirmPassword) {
-            message.textContent = "Passwords do not match.";
-            return;
-        }
+            const name =
+                document.getElementById("name").value.trim();
 
-        try {
-            const response = await fetch(
-                `${API_URL}/auth/register`,
-                {
-                    method: "POST",
+            const email =
+                document.getElementById("email").value.trim();
 
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
+            const password =
+                document.getElementById("password").value;
 
-                    body: JSON.stringify({
-                        name,
-                        email,
-                        password
-                    })
+            const message =
+                document.getElementById("message");
+
+            try {
+
+                const response =
+                    await fetch(
+                        `${API_URL}/auth/register`,
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body: JSON.stringify({
+                                name,
+                                email,
+                                password
+                            })
+                        }
+                    );
+
+                const data =
+                    await response.json();
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        data.message ||
+                        "Registration failed"
+                    );
+
                 }
-            );
 
-            const data = await response.json();
+                if (message) {
 
-            if (!response.ok) {
-                message.textContent =
-                    data.message || "Registration failed.";
-                return;
+                    message.textContent =
+                        "Registration successful! Redirecting to login...";
+
+                    message.style.color =
+                        "green";
+
+                }
+
+                setTimeout(() => {
+
+                    window.location.href =
+                        "login.html";
+
+                }, 1000);
+
+            } catch (error) {
+
+                console.error(
+                    "Registration error:",
+                    error
+                );
+
+                if (message) {
+
+                    message.textContent =
+                        error.message ||
+                        "Unable to register.";
+
+                    message.style.color =
+                        "red";
+
+                }
+
             }
 
-            message.textContent =
-                "Account created successfully!";
-
-            registerForm.reset();
-
-            setTimeout(() => {
-                window.location.href = "login.html";
-            }, 1000);
-
-        } catch (error) {
-            console.error("Registration error:", error);
-
-            message.textContent =
-                "Unable to connect to server.";
         }
-    });
+    );
+
 }
 
+// ======================================================
+// LOGIN
+// ======================================================
 
-// ==================== LOGIN ====================
-
-const loginForm = document.getElementById("loginForm");
+const loginForm =
+    document.getElementById("loginForm");
 
 if (loginForm) {
-    loginForm.addEventListener("submit", async (event) => {
-        event.preventDefault();
 
-        const email =
-            document.getElementById("loginEmail").value.trim();
+    loginForm.addEventListener(
+        "submit",
+        async function (event) {
 
-        const password =
-            document.getElementById("loginPassword").value;
+            event.preventDefault();
 
-        const message =
-            document.getElementById("loginMessage");
+            const email =
+                document.getElementById("email").value.trim();
 
-        try {
-            const response = await fetch(
-                `${API_URL}/auth/login`,
-                {
-                    method: "POST",
+            const password =
+                document.getElementById("password").value;
 
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
+            const message =
+                document.getElementById("message");
 
-                    body: JSON.stringify({
-                        email,
-                        password
-                    })
+            try {
+
+                const response =
+                    await fetch(
+                        `${API_URL}/auth/login`,
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body: JSON.stringify({
+                                email,
+                                password
+                            })
+                        }
+                    );
+
+                const data =
+                    await response.json();
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        data.message ||
+                        "Login failed"
+                    );
+
                 }
-            );
 
-            const data = await response.json();
+                // ==================================================
+                // SAVE LOGIN DATA
+                // ==================================================
 
-            if (!response.ok) {
-                message.textContent =
-                    data.message || "Login failed.";
-                return;
+                if (data.token) {
+
+                    localStorage.setItem(
+                        "token",
+                        data.token
+                    );
+
+                }
+
+                if (data.user) {
+
+                    localStorage.setItem(
+                        "user",
+                        JSON.stringify(data.user)
+                    );
+
+                }
+
+                if (message) {
+
+                    message.textContent =
+                        "Login successful! Redirecting...";
+
+                    message.style.color =
+                        "green";
+
+                }
+
+                setTimeout(() => {
+
+                    window.location.href =
+                        "index.html";
+
+                }, 500);
+
+            } catch (error) {
+
+                console.error(
+                    "Login error:",
+                    error
+                );
+
+                if (message) {
+
+                    message.textContent =
+                        error.message ||
+                        "Unable to login.";
+
+                    message.style.color =
+                        "red";
+
+                }
+
             }
 
-            // Save login information
-            localStorage.setItem("token", data.token);
-            localStorage.setItem(
-                "user",
-                JSON.stringify(data.user)
-            );
-
-            message.textContent =
-                "Login successful!";
-
-            // Open dashboard
-            setTimeout(() => {
-                window.location.href = "index.html";
-            }, 500);
-
-        } catch (error) {
-            console.error("Login error:", error);
-
-            message.textContent =
-                "Unable to connect to server.";
         }
-    });
+    );
+
 }
+
+// ======================================================
+// IF ALREADY LOGGED IN
+// ======================================================
+
+function checkLogin() {
+
+    const token =
+        localStorage.getItem("token");
+
+    const currentPage =
+        window.location.pathname;
+
+    if (
+        token &&
+        (
+            currentPage.endsWith(
+                "login.html"
+            ) ||
+            currentPage.endsWith(
+                "register.html"
+            )
+        )
+    ) {
+
+        window.location.href =
+            "index.html";
+
+    }
+
+}
+
+checkLogin();
