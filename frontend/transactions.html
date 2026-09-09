@@ -1,0 +1,229 @@
+ <!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Transactions - Personal Expense Tracker
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="navbar">
+
+
+        <div class="logo">
+            Personal Expense Tracker
+        </div>
+
+
+        <nav class="nav-links">
+
+            <a
+                href="index.html"
+                class="nav-link"
+            >
+                Dashboard
+            </a>
+
+
+            <a
+                href="transactions.html"
+                class="nav-link active"
+            >
+                Transactions
+            </a>
+
+        </nav>
+
+
+        <div class="nav-right">
+
+            <span id="userName"></span>
+
+
+            <button
+                onclick="logout()"
+                class="logout-btn"
+            >
+                Logout
+            </button>
+
+        </div>
+
+
+    </header>
+
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="container">
+
+
+        <h1>
+            Transactions
+        </h1>
+
+
+        <p class="subtitle">
+            View, filter and manage all your transactions.
+        </p>
+
+
+        <!-- ================= FILTERS ================= -->
+
+        <section class="transaction-list">
+
+
+            <h2>
+                Filter Transactions
+            </h2>
+
+
+            <div class="filters">
+
+
+                <!-- TYPE -->
+
+                <select id="filterType">
+
+                    <option value="">
+                        All Types
+                    </option>
+
+                    <option value="income">
+                        Income
+                    </option>
+
+                    <option value="expense">
+                        Expense
+                    </option>
+
+                </select>
+
+
+                <!-- CATEGORY -->
+
+                <input
+                    type="text"
+                    id="filterCategory"
+                    placeholder="Category"
+                >
+
+
+                <!-- DATE -->
+
+                <input
+                    type="date"
+                    id="filterDate"
+                >
+
+
+                <!-- FILTER -->
+
+                <button
+                    type="button"
+                    class="primary-btn"
+                    onclick="filterTransactions()"
+                >
+                    Filter
+                </button>
+
+
+                <!-- CLEAR -->
+
+                <button
+                    type="button"
+                    class="secondary-btn"
+                    onclick="clearFilters()"
+                >
+                    Clear
+                </button>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ================= TRANSACTIONS ================= -->
+
+        <section class="transaction-list">
+
+
+            <h2>
+                All Transactions
+            </h2>
+
+
+            <div id="transactions">
+
+                <p id="noTransactions">
+                    Loading transactions...
+                </p>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ================= BACK TO DASHBOARD ================= -->
+
+        <div
+            style="
+                text-align: center;
+                margin: 25px 0 40px;
+            "
+        >
+
+            <a
+                href="index.html"
+                class="primary-btn"
+                style="
+                    display: inline-block;
+                    text-decoration: none;
+                "
+            >
+                Back to Dashboard
+            </a>
+
+        </div>
+
+
+    </main>
+
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script
+        src="js/transactions.js"
+    ></script>
+
+
+</body>
+
+</html>

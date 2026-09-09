@@ -1,0 +1,625 @@
+ /* =========================================
+   PERSONAL EXPENSE TRACKER
+   MAIN STYLESHEET
+========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f5f7fb;
+    color: #1f2937;
+    min-height: 100vh;
+}
+
+
+/* =========================================
+   AUTH / LOGIN / REGISTER
+========================================= */
+
+.auth-container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 430px;
+    background: #ffffff;
+    padding: 35px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e5e7eb;
+}
+
+.auth-card h1 {
+    text-align: center;
+    color: #2563eb;
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+.auth-card h2 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+.auth-card > p {
+    text-align: center;
+    color: #6b7280;
+    margin-bottom: 25px;
+}
+
+.auth-card form {
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+}
+
+.auth-card label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 7px;
+}
+
+.auth-card input {
+    width: 100%;
+    padding: 13px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 15px;
+    outline: none;
+    background: #ffffff;
+}
+
+.auth-card input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.auth-card button {
+    width: 100%;
+    border: none;
+    background: #2563eb;
+    color: #ffffff;
+    padding: 13px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    margin-top: 5px;
+}
+
+.auth-card button:hover {
+    background: #1d4ed8;
+}
+
+.auth-footer {
+    text-align: center;
+    margin-top: 22px;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.auth-footer a {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.auth-footer a:hover {
+    text-decoration: underline;
+}
+
+.message {
+    text-align: center;
+    margin-top: 12px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+/* =========================================
+   NAVBAR
+========================================= */
+
+.navbar {
+    width: 100%;
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 16px 6%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: 700;
+    color: #2563eb;
+    white-space: nowrap;
+}
+
+.navbar h2 {
+    color: #2563eb;
+    font-size: 22px;
+    white-space: nowrap;
+}
+
+
+/* =========================================
+   NAVIGATION LINKS
+========================================= */
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #4b5563;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 9px 14px;
+    border-radius: 7px;
+    transition: all 0.2s ease;
+}
+
+.nav-link:hover {
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+.nav-link.active {
+    background: #2563eb;
+    color: #ffffff;
+}
+
+
+/* =========================================
+   NAV RIGHT
+========================================= */
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+#userName {
+    font-size: 15px;
+    font-weight: 600;
+    color: #374151;
+}
+
+
+/* =========================================
+   LOGOUT BUTTON
+========================================= */
+
+.logout-btn {
+    border: none;
+    background: #dc2626;
+    color: #ffffff;
+    padding: 9px 18px;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.logout-btn:hover {
+    background: #b91c1c;
+}
+
+
+/* =========================================
+   MAIN CONTAINER
+========================================= */
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 40px auto;
+}
+
+.container > h1 {
+    font-size: 36px;
+    margin-bottom: 8px;
+    color: #111827;
+}
+
+.subtitle {
+    color: #6b7280;
+    margin-bottom: 30px;
+    font-size: 16px;
+}
+
+
+/* =========================================
+   SUMMARY CARDS
+========================================= */
+
+.summary {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+    margin-bottom: 30px;
+}
+
+.summary-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.summary-card h3 {
+    color: #6b7280;
+    font-size: 15px;
+    margin-bottom: 12px;
+}
+
+.summary-card p {
+    font-size: 28px;
+    font-weight: 700;
+    color: #111827;
+}
+
+
+/* =========================================
+   TRANSACTION FORM
+========================================= */
+
+.transaction-form {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.transaction-form h2,
+.transaction-list h2 {
+    font-size: 24px;
+    margin-bottom: 22px;
+    color: #111827;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.full-width {
+    grid-column: 1 / -1;
+}
+
+.form-group label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #374151;
+}
+
+.form-group input,
+.form-group select,
+.filters input,
+.filters select {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #111827;
+    font-size: 14px;
+    outline: none;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.filters input:focus,
+.filters select:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+
+/* =========================================
+   BUTTONS
+========================================= */
+
+.primary-btn {
+    border: none;
+    background: #2563eb;
+    color: #ffffff;
+    padding: 12px 22px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.primary-btn:hover {
+    background: #1d4ed8;
+}
+
+.secondary-btn {
+    border: none;
+    background: #6b7280;
+    color: #ffffff;
+    padding: 12px 22px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.secondary-btn:hover {
+    background: #4b5563;
+}
+
+.transaction-form .primary-btn {
+    width: 100%;
+    margin-top: 22px;
+}
+
+
+/* =========================================
+   TRANSACTION LIST
+========================================= */
+
+.transaction-list {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.transaction-list canvas {
+    max-height: 450px;
+}
+
+
+/* =========================================
+   FILTERS
+========================================= */
+
+.filters {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr auto auto;
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.filters button {
+    white-space: nowrap;
+}
+
+
+/* =========================================
+   TRANSACTION ITEM
+========================================= */
+
+.transaction-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding: 22px;
+    margin-bottom: 15px;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+}
+
+.transaction-item:hover {
+    border-color: #bfdbfe;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.transaction-info {
+    flex: 1;
+}
+
+.transaction-info h3 {
+    font-size: 18px;
+    margin-bottom: 6px;
+    color: #111827;
+}
+
+.transaction-info p {
+    color: #6b7280;
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+
+.transaction-info small {
+    color: #9ca3af;
+    font-size: 13px;
+}
+
+.transaction-amount {
+    font-size: 20px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.transaction-amount.income {
+    color: #16a34a;
+}
+
+.transaction-amount.expense {
+    color: #dc2626;
+}
+
+
+/* =========================================
+   TRANSACTION ACTIONS
+========================================= */
+
+.transaction-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.edit-btn,
+.delete-btn {
+    border: none;
+    padding: 7px 14px;
+    border-radius: 6px;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.edit-btn {
+    background: #f59e0b;
+}
+
+.edit-btn:hover {
+    background: #d97706;
+}
+
+.delete-btn {
+    background: #ef4444;
+}
+
+.delete-btn:hover {
+    background: #dc2626;
+}
+
+
+/* =========================================
+   NO TRANSACTIONS
+========================================= */
+
+#noTransactions {
+    text-align: center;
+    color: #9ca3af;
+    padding: 30px;
+    font-size: 15px;
+}
+
+
+/* =========================================
+   MOBILE RESPONSIVE
+========================================= */
+
+@media (max-width: 900px) {
+
+    .navbar {
+        flex-wrap: wrap;
+    }
+
+    .summary {
+        grid-template-columns: 1fr;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .full-width {
+        grid-column: auto;
+    }
+
+    .filters {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .nav-links {
+        order: 3;
+        width: 100%;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    .navbar {
+        padding: 15px 5%;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .logo,
+    .navbar h2 {
+        font-size: 20px;
+    }
+
+    .nav-links {
+        order: 0;
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .nav-right {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .container {
+        width: 94%;
+        margin: 25px auto;
+    }
+
+    .container > h1 {
+        font-size: 28px;
+    }
+
+    .transaction-form,
+    .transaction-list {
+        padding: 20px;
+    }
+
+    .filters {
+        grid-template-columns: 1fr;
+    }
+
+    .transaction-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .transaction-amount {
+        font-size: 18px;
+        align-self: flex-end;
+    }
+
+    .auth-card {
+        padding: 25px 20px;
+    }
+
+}

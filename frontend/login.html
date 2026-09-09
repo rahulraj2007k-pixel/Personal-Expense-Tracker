@@ -1,0 +1,70 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login - Personal Expense Tracker</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <div class="auth-container">
+
+        <div class="auth-card">
+
+            <h1>Personal Expense Tracker</h1>
+
+            <h2>Welcome Back</h2>
+
+            <p class="auth-subtitle">
+                Login to manage your finances
+            </p>
+
+            <form id="loginForm">
+
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+
+                    <input
+                        type="email"
+                        id="loginEmail"
+                        placeholder="Enter your email"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+
+                    <input
+                        type="password"
+                        id="loginPassword"
+                        placeholder="Enter your password"
+                        required
+                    >
+                </div>
+
+                <button type="submit" class="auth-button">
+                    Login
+                </button>
+
+                <p id="loginMessage" class="message"></p>
+
+            </form>
+
+            <p class="auth-footer">
+                Don't have an account?
+                <a href="register.html">Create Account</a>
+            </p>
+
+        </div>
+
+    </div>
+
+    <script src="js/auth.js"></script>
+
+</body>
+</html>
